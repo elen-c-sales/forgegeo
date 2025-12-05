@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForgeGeo | Soluções em Geotecnologia</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- PLUGGIS DESIGN SYSTEM TOKENS (INFERRED) --- */
+        :root {
+            /* Cores Principais - Estilo GIS/Tech Clean */
+            --brand-primary: #009688;       /* Teal/Verde Tecnológico (SaaS vibe) */
+            --brand-primary-dark: #00796B;  /* Tom mais escuro para hover */
+            --brand-accent: #E0F2F1;        /* Fundo bem claro da cor primária */
+            --brand-secondary: #263238;     /* Cinza Escuro/Azul Petróleo para textos fortes */
+            
+            /* Cores de Fundo */
+            --bg-body: #FFFFFF;             /* Fundo Branco Puro */
+            --bg-light: #F8F9FA;            /* Cinza muito suave para seções alternadas */
+            --bg-surface: #FFFFFF;          /* Superfície de cards */
+            
+            /* Texto */
+            --text-main: #374151;           /* Cinza Escuro (Leitura) */
+            --text-light: #6B7280;          /* Cinza Médio (Legendas) */
+            --text-white: #FFFFFF;
+
+            /* Tipografia */
+            --font-head: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+
+            /* UI Elements */
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-pill: 50px;
+            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.08); /* Sombra suave e difusa */
+            --shadow-hover: 0 10px 30px rgba(0, 150, 136, 0.15);
+            
+            --container-width: 1140px;
+        }
+
+        /* --- GLOBAL RESET --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* Typography */
+        h1, h2, h3, h4 { font-family: var(--font-head); color: var(--brand-secondary); font-weight: 700; line-height: 1.25; }
+        h1 { font-size: 2.75rem; margin-bottom: 20px; letter-spacing: -0.5px; }
+        h2 { font-size: 2.25rem; margin-bottom: 16px; }
+        h3 { font-size: 1.25rem; margin-bottom: 12px; font-weight: 600; }
+        
+        p { color: var(--text-light); margin-bottom: 24px; font-size: 1.05rem; }
+
+        /* --- LAYOUT COMPONENTS --- */
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navbar - Clean & White */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #E5E7EB;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { 
+            font-family: var(--font-head); 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            color: var(--brand-secondary); 
+            display: flex; align-items: center; gap: 8px;
+        }
+        .logo span { color: var(--brand-primary); }
+
+        /* Buttons - Rounded & Friendly */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 14px 36px;
+            border-radius: var(--radius-pill); /* Botão pílula (SaaS style) */
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            font-family: var(--font-head);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .btn-primary {
+            background-color: var(--brand-primary);
+            color: #fff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: var(--brand-primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0, 150, 136, 0.25);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--brand-primary);
+            border: 2px solid var(--brand-primary);
+            box-shadow: none;
+        }
+        .btn-outline:hover {
+            background: var(--brand-accent);
+        }
+
+        /* --- SECTIONS --- */
+        
+        /* Hero Section - Clean gradient background */
+        .hero {
+            padding-top: 160px;
+            padding-bottom: 100px;
+            /* Gradiente sutil e moderno (Branco -> Azulado/Verde muito claro) */
+            background: linear-gradient(180deg, #FFFFFF 0%, #F0FDFA 100%);
+            text-align: center;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: #DEF7EC;
+            color: #03543F;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .video-card {
+            background: #fff;
+            padding: 12px;
+            border-radius: var(--radius-md);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1); /* Sombra marcante */
+            max-width: 800px;
+            margin: 40px auto 0;
+        }
+        .video-wrapper {
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            background: #000;
+        }
+
+        /* Features/Pain Points - Cards Grid */
+        .section-light { background: var(--bg-light); padding: 80px 0; }
+        .section-white { background: var(--bg-body); padding: 80px 0; }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .feature-card {
+            background: var(--bg-surface);
+            padding: 32px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-card);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #F3F4F6;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--brand-accent);
+        }
+        .icon-box {
+            width: 56px; height: 56px;
+            background: var(--brand-accent);
+            color: var(--brand-primary);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        /* Instructor Section */
+        .instructor-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+        .instructor-img-wrapper {
+            position: relative;
+        }
+        .instructor-img {
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-card);
+        }
+        /* Elemento decorativo atrás da foto (bolinhas/padrão) */
+        .pattern-dots {
+            position: absolute;
+            top: -20px; left: -20px;
+            width: 100%; height: 100%;
+            background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: -1;
+            opacity: 0.6;
+            border-radius: var(--radius-md);
+        }
+
+        /* Pricing Table - Clean SaaS Style */
+        .pricing-card {
+            background: #fff;
+            border-radius: var(--radius-md);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            max-width: 500px;
+            margin: 0 auto;
+            border: 1px solid #E5E7EB;
+        }
+        .pricing-header {
+            background: var(--bg-light);
+            padding: 40px;
+            text-align: center;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        .price-tag {
+            color: var(--brand-primary);
+            font-size: 3.5rem;
+            font-weight: 700;
+            font-family: var(--font-head);
+        }
+        .price-old {
+            text-decoration: line-through;
+            color: #9CA3AF;
+            font-size: 1.1rem;
+            display: block;
+        }
+        .pricing-body { padding: 40px; }
+        .feature-list li {
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-main);
+        }
+        .check-icon {
+            color: var(--brand-primary);
+            font-weight: bold;
+            background: var(--brand-accent);
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--brand-secondary);
+            color: #D1D5DB;
+            padding: 60px 0 30px;
+        }
+        .footer-content { text-align: center; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .instructor-split { grid-template-columns: 1fr; gap: 40px; }
+            .hero { padding-top: 120px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-content">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--brand-primary)"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                Forge<span>Geo</span>
+            </div>
+            <a href="https://pay.hotmart.com/B102662373M?checkoutMode=10&bid=1764971779402" target="_blank" class="btn btn-primary" style="padding: 10px 24px; font-size: 0.9rem;">Matricular-se</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <span class="hero-badge">🚀 Oferta Especial Black Friday</span>
+            
+            <h1 style="max-width: 900px; margin: 0 auto 20px;">
+                Domine o Cadastro Ambiental Rural e o Google Earth Engine
+            </h1>
+            
+            <p style="max-width: 700px; margin: 0 auto 32px;">
+                Aprenda com metodologia oficial validada na SEMAS-Pará. <br>
+                Segurança técnica e precisão para seus projetos ambientais.
+            </p>
+
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="https://pay.hotmart.com/B102662373M?checkoutMode=10&bid=1764971779402" target="_blank" class="btn btn-primary">
+                    Garantir Minha Vaga
+                </a>
+                <a href="#detalhes" class="btn btn-outline">
+                    Ver Detalhes do Curso
+                </a>
+            </div>
+
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/-ofpHK8ckKk?autoplay=0&controls=1&rel=0" title="Vídeo de Apresentação" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            <p style="margin-top: 16px; font-size: 0.9rem; color: var(--text-light);">
+                🔒 Pagamento seguro via Hotmart • Garantia de 7 dias
+            </p>
+        </div>
+    </section>
+
+    <section class="section-light" id="detalhes">
+        <div class="container">
+            <div style="text-align: center; max-width: 700px; margin: 0 auto;">
+                <h3 style="color: var(--brand-primary); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">Diagnóstico Profissional</h3>
+                <h2>Resolva os problemas que travam seus projetos</h2>
+            </div>
+
+            <div class="cards-grid">
+                <div class="feature-card">
+                    <div class="icon-box">⚠️</div>
+                    <h3>Pendências no CAR</h3>
+                    <p style="margin-bottom: 0;">Sabe aquele CAR travado por inconsistência geométrica? Aprenda a resolver e destravar processos na SEMAS.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box">🗺️</div>
+                    <h3>APPs Mal Delimitadas</h3>
+                    <p style="margin-bottom: 0;">Evite erros básicos na delimitação de Áreas de Preservação Permanente que geram rejeição de laudos.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box">📅</div>
+                    <h3>Marco Temporal (2008)</h3>
+                    <p style="margin-bottom: 0;">Domine a comprovação de uso consolidado até 22/07/2008 utilizando imagens de satélite históricas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-white">
+        <div class="container">
+            <div class="instructor-split">
+                <div class="instructor-content">
+                    <span style="color: var(--brand-primary); font-weight: 700;">QUEM É O INSTRUTOR?</span>
+                    <h2 style="margin-top: 10px;">Adler Henrique Alves</h2>
+                    <p>
+                        Engenheiro Cartógrafo e Agrimensor, Mestre em Recursos Aquáticos e Especialista em Sensoriamento Remoto.
+                    </p>
+                    <p>
+                        <strong>Ex-técnico da SEMAS/PA:</strong> Fui responsável pela criação de metodologias de validação oficiais. Sei exatamente o que o analista ambiental procura no seu projeto.
+                    </p>
+                    <ul style="margin-top: 20px; display: grid; gap: 10px;">
+                        <li style="display: flex; gap: 10px; align-items: center;">
+                            <span class="check-icon">✓</span> +10 Anos de Experiência
+                        </li>
+                        <li style="display: flex; gap: 10px; align-items: center;">
+                            <span class="check-icon">✓</span> Fundador da ForgeGeo
+                        </li>
+                    </ul>
+                </div>
+                <div class="instructor-img-wrapper">
+                    <div class="pattern-dots"></div>
+                    <img src="https://forgegeo.com.br/wp-content/uploads/2025/07/adler_para_site2.png" alt="Adler Henrique" class="instructor-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-light" style="padding-bottom: 100px;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 50px;">
+                <h2>Invista na sua carreira agora</h2>
+                <p>O pacote completo para você se tornar referência em geotecnologia.</p>
+            </div>
+
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <span style="font-weight: 600; color: var(--text-light); text-transform: uppercase; font-size: 0.9rem;">Combo Black Friday</span>
+                    <div style="margin: 16px 0;">
+                        <span class="price-old">De R$ 897,00</span>
+                        <span class="price-tag">R$ 297</span>
+                        <span style="color: var(--text-light);">/ à vista</span>
+                    </div>
+                    <a href="https://pay.hotmart.com/B102662373M?checkoutMode=10&bid=1764971779402" target="_blank" class="btn btn-primary" style="width: 100%;">
+                        Quero Aproveitar o Desconto
+                    </a>
+                </div>
+                <div class="pricing-body">
+                    <ul class="feature-list">
+                        <li><span class="check-icon">✓</span> <strong>Curso Dominando o CAR</strong> (Completo)</li>
+                        <li><span class="check-icon">✓</span> <strong>Curso Google Earth Engine</strong> (Prático)</li>
+                        <li><span class="check-icon">✓</span> Acesso Vitalício à Plataforma</li>
+                        <li><span class="check-icon">✓</span> Certificado Incluso</li>
+                        <li><span class="check-icon">✓</span> Grupo de Networking Exclusivo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="logo" style="justify-content: center; color: #fff; margin-bottom: 20px;">
+                Forge<span>Geo</span>
+            </div>
+            <p style="color: #9CA3AF; font-size: 0.9rem;">
+                © 2025 ForgeGeo Soluções em Geotecnologia. <br>
+                Feito para transformar o mercado ambiental.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
